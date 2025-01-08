@@ -3,7 +3,7 @@
 def greeting_agent(user_text: str) -> str:
     """
     A specialized agent for greeting:
-    - If it detects a known greeting phrase, returns a friendly response.
+    - If it detects a known greeting (hello, hi, etc.), returns a friendly response.
     - Otherwise, fallback.
     """
 
@@ -13,4 +13,4 @@ def greeting_agent(user_text: str) -> str:
     if any(greet in text_lower for greet in known_greetings):
         return "Hello there! 👋 How can I help you today?"
     else:
-        return "I only handle greetings (hello, hi, etc.) right now."
+        return "I only handle greetings right now."
