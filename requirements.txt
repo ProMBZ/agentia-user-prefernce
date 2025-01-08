@@ -3,9 +3,6 @@
 # For the "langchain_google_genai" integration with Gemini
 langchain_google_genai==2.0.8
 
-# This library typically requires google-generativeai
-google-generativeai==0.3.2
-
 # For general LangChain usage (sometimes needed for schema, etc.)
 langchain==0.1.1
 
