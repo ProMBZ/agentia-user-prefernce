@@ -4,29 +4,46 @@ import streamlit as st
 from front_end_agent import front_end_agent
 
 def main():
-    st.title("👋 Agentia User Preference")
+    st.title("Agentia User Preference Project")
+
     st.markdown("""
-Features :
-- Broaden matching in user_preference_agent.py (no matter how you say "What is my name?").
-- Add a fallback check in llm_node.py if Gemini says OTHER but text includes "name"/"password".
-- Show only the single final response (no conversation log).
-    """)
+**Try commands**:
+- "Hello" (Greeting Agent)
+- "My user id is 1234" (auth user, sets user_id)
+- "My name is John"
+- "I live in London"
+- "I like soccer"
+- "What is my name?"
+- "Where do I live?"
+- "What are my interests?"
+- "My password is 999"
+- "What is my password?"
+""")
 
-    if "last_response" not in st.session_state:
-        st.session_state["last_response"] = ""
+    # We'll store conversation state in st.session_state
+    if "conv_state" not in st.session_state:
+        st.session_state["conv_state"] = {
+            "user_id": 1  # default user id
+        }
 
-    user_text = st.text_input("Type something (e.g. 'What’s my name?', 'My name is Muhammad'):")
-
+    user_text = st.text_input("Type your message:")
     if st.button("Send"):
-        # Orchestrate
-        state = {"user_message": user_text, "response": ""}
-        result = front_end_agent(state)
+        # Pass user_text + the existing conversation state
+        # front_end_agent returns {"response": "..."}
+        state_dict = {
+            "user_id": st.session_state["conv_state"]["user_id"]
+        }
+        result = front_end_agent(user_text, state_dict)
 
-        # Update only the final response
-        st.session_state["last_response"] = result["response"]
+        # If user_id changed inside the agent, update it
+        if "user_id" in state_dict:
+            st.session_state["conv_state"]["user_id"] = state_dict["user_id"]
 
-    # Display just the single final agent response
-    st.write(st.session_state["last_response"])
+        st.session_state["conv_state"]["last_response"] = result["response"]
+
+    st.write("### Agent's Response:")
+    if "last_response" in st.session_state["conv_state"]:
+        st.write(st.session_state["conv_state"]["last_response"])
 
 if __name__ == "__main__":
     main()
