@@ -1,19 +1,19 @@
 # requirements.txt
 
 # For the "langchain_google_genai" integration with Gemini
-langchain_google_genai==
+langchain_google_genai
 
 # For general LangChain usage (sometimes needed for schema, etc.)
-langchain==
+langchain
 
 # The LangGraph library for multi-agent state graphs
-langgraph==
+langgraph
 
 # For environment variable loading
-python-dotenv==1.0.0
+python-dotenv
 
 # For the web UI
-streamlit==
+streamlit
 
 # For typed dictionaries (backport in some older Python versions)
-typing_extensions==
+typing_extensions
